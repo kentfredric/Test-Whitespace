@@ -22,7 +22,6 @@ use Carp                   ();
         ]       
         in => [ '/path/to/dir/' ],
         types => sub { $_->perlmodule }, 
-        files => [ ],
     );
 
 =cut
