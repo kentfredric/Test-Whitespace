@@ -153,7 +153,6 @@ version 0.0100
         ]       
         in => [ '/path/to/dir/' ],
         types => sub { $_->perlmodule }, 
-        files => [ ],
     );
 
 =head1 AUTHOR
