@@ -4,6 +4,19 @@ NAME
 VERSION
     version 0.0100
 
+SYNOPSIS
+        use Test::Whitespace (
+            scan_for => [
+                'eol', 'tab' , 'extra' => [
+                    [ qr/\x504/, '\x504 {{err}}' ],
+                    [ qr/){/, 'Untidyness {{err}}' ],
+                ]
+            ]       
+            in => [ '/path/to/dir/' ],
+            types => sub { $_->perlmodule }, 
+            files => [ ],
+        );
+
 AUTHOR
       Kent Fredric <kentnl at cpan.org>
 

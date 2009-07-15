@@ -7,3 +7,7 @@ META.yml
 Makefile.PL
 README
 lib/Test/Whitespace.pm
+lib/Test/Whitespace/Rule.pm
+lib/Test/Whitespace/RuleSet.pm
+t/01-load.t
+t/02-poweruser.t
