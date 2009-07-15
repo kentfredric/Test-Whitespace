@@ -1,0 +1,14 @@
+---
+abstract: 'Check your dist for excess whitespace.'
+author:
+  - 'Kent Fredric <kentnl at cpan.org>'
+generated_by: 'Dist::Zilla::Plugin::MetaYAML version 1.091610'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Test-Whitespace
+requires: {}
+resources:
+  repository: git://github.com/kentfredric/MooseX-Has-Sugar.git
+version: 0.0100

@@ -1,0 +1,18 @@
+{
+   "resources" : {
+      "repository" : "git://github.com/kentfredric/MooseX-Has-Sugar.git"
+   },
+   "meta-spec" : {
+      "version" : 1.4,
+      "url" : "http://module-build.sourceforge.net/META-spec-v1.4.html"
+   },
+   "generated_by" : "Dist::Zilla::Plugin::MetaJSON version 1.091610",
+   "version" : "0.0100",
+   "name" : "Test-Whitespace",
+   "author" : [
+      "Kent Fredric <kentnl at cpan.org>"
+   ],
+   "license" : "perl",
+   "requires" : {},
+   "abstract" : "Check your dist for excess whitespace."
+}
