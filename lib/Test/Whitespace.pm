@@ -5,11 +5,8 @@ package Test::Whitespace;
 use strict;
 use warnings;
 
-use Sub::Install           ();
-use Test::Builder          ();
-use File::Find::Rule       ();
-use File::Find::Rule::Perl ();
-use Carp                   ();
+use Test::Builder ();
+use Carp          ();
 
 =head1 SYNOPSIS
 
@@ -83,8 +80,14 @@ In all of the above cases, this module is for you.
 
 =cut
 
-# Aliases
+# Aliases, with a little difference.
+# Modules aliases need to work wont be loaded till somebody
+# calls the alias :)
+
 sub FFR() {
+  require File::Find::Rule;
+  require File::Find::Rule::Perl;
+
   'File::Find::Rule';
 }
 
@@ -102,6 +105,7 @@ sub WhitespaceRuleSet {
 
 sub import_subs {
   my $caller = shift;
+  require Sub::Install;
   Sub::Install::install_sub( { code => \&WhitespaceRule,    into => $caller, as => 'WhitespaceRule', } );
   Sub::Install::install_sub( { code => \&WhitespaceRuleSet, into => $caller, as => 'WhitespaceRuleSet', } );
   return;
@@ -126,11 +130,8 @@ sub import_autotest {
 
   for ( @{ $args->{'files'} } ) {
     my $result = $rs->test_file($_);
-    if ( $result->[0] == 1 ) {
-      $tb->ok( 1, "Test::Whitespace for $_" );
-    }
-    else {
-      $tb->ok( 0, "Test::Whitespace for $_" );
+    $tb->ok( $result->[0], "Test::Whitespace for $_" );
+    unless ( $result->[0] == 1 ) {
       for ( @{ $result->[1] } ) {
         $tb->diag($_);
       }
@@ -149,7 +150,7 @@ sub find_files {
     $f = $types->();
   }
 
-  @files = $f->in( @{ $in  } );
+  @files = $f->in( @{$in} );
   return \@files;
 }
 
@@ -161,8 +162,16 @@ sub find_files {
   my $scan_for = {
     'eol'   => sub { $_[1]->tailing; },
     'tab'   => sub { $_[1]->tabs; },
-    'extra' => sub { $_[1]->add_rule( @{$_} ) for @{ ( shift @{ $_[0] } ) } },
+    'extra' => sub { scan_for_extra( $_[1], scalar shift @{ $_[0] } ) },
   };
+
+  sub scan_for_extra {
+    my ( $rs, $extra ) = @_;
+    for ( @{$extra} ) {
+      $rs->add_rule( @{$_} );
+    }
+    return $rs;
+  }
 
   sub inject_rules {
 
