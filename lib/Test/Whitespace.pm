@@ -26,6 +26,36 @@ use Carp                   ();
 
 =cut
 
+=head1 PRIMARY AUDIENCE
+
+This Module is intended for Author Testing and Release testing.
+
+=cut
+
+=head1 RATIONALE / PRIMARY AUDIENCE
+
+There are many cases where L<Perl::Critic> is useless to you:
+
+=over 4
+
+=item * You have Non-Perl files that may be shipping with your dist
+
+For example, C<.js> files, C<.yaml> files, C<.json> files, C<.html> files.
+
+=item * You don't care for any other critic policies.
+
+You just want to keep whitespace consistent and repressed.
+
+=item * You have your own weird regex you want to mandate.
+
+And you never want to see that a string in your dist matches that regex, and you really cant be arsed writing a full blown critic policy and uploading it on CPAN for this one tiny case.
+
+=back
+
+In all of the above cases, this module is for you.
+
+=cut
+
 # Aliases
 sub FFR() {
   'File::Find::Rule';
