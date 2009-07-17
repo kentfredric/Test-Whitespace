@@ -13,6 +13,8 @@ use Carp                   ();
 
 =head1 SYNOPSIS
 
+=head2 Declarative
+
     use Test::Whitespace (
         scan_for => [
             'eol', 'tab' , 'extra' => [
@@ -23,6 +25,31 @@ use Carp                   ();
         in => [ '/path/to/dir/' ],
         types => sub { $_->perlmodule }, 
     );
+
+Automatically scans for \s+$ , \t and other extra regexen in all
+    perl modules in /path/to/dir.
+
+=head2 Objective
+
+    use Test::More plan => 5;
+    # Import 2 Symbols for you.
+    use Test::Whitespace;
+
+    my $rs = WhitespaceRuleSet
+        ->new
+        ->tailing
+        ->tabs
+        ->add_rule( qr/\x504/, '\x504 {{err}}' )
+        ->add_rule( qr/){/, 'Untidyness {{err}}' );
+
+    my @files = ( ... );
+    for ( @files ){
+        my $stat = $rs->test_file( $_ );
+        ok( $stat->[0] , "Test for $_ whitespace");
+        diag( $stat->[1] ) unless $stat->[0] ;
+    }
+
+Works more or less the same, but with more control and doing it the hard way.
 
 =cut
 
