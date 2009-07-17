@@ -16,6 +16,29 @@ SYNOPSIS
             types => sub { $_->perlmodule }, 
         );
 
+PRIMARY AUDIENCE
+    This Module is intended for Author Testing and Release testing.
+
+RATIONALE / PRIMARY AUDIENCE
+    There are many cases where Perl::Critic is useless to you:
+
+    *   You have Non-Perl files that may be shipping with your dist
+
+        For example, ".js" files, ".yaml" files, ".json" files, ".html"
+        files.
+
+    *   You don't care for any other critic policies.
+
+        You just want to keep whitespace consistent and repressed.
+
+    *   You have your own weird regex you want to mandate.
+
+        And you never want to see that a string in your dist matches that
+        regex, and you really cant be arsed writing a full blown critic
+        policy and uploading it on CPAN for this one tiny case.
+
+    In all of the above cases, this module is for you.
+
 AUTHOR
       Kent Fredric <kentnl at cpan.org>
 
